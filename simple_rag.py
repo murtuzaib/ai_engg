@@ -8,12 +8,11 @@ import os
 from pathlib import Path
 import docx
 
-from langchain.docstore.document import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS, Chroma
-from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI  # example LLM (swap if needed)
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS, Chroma
+from langchain_community.llms import Ollama
 
 # --- Config ---
 FILES = ["doc1.docx", "doc2.docx", "doc3.docx"]  # local Word docs
@@ -52,12 +51,27 @@ elif VECTOR_STORE == "chroma":
 else:
     raise ValueError("VECTOR_STORE must be 'faiss' or 'chroma'")
 
-# --- 5. RetrievalQA ---
-llm = OpenAI(temperature=0)
-qa = RetrievalQA.from_chain_type(llm=llm, retriever=vs.as_retriever(search_kwargs={"k": 4}))
+# --- 5. Simple retrieval ---
+llm = Ollama(model="mistral", temperature=0)  # Make sure Ollama is running: ollama run mistral
+clearetriever = vs.as_retriever(search_kwargs={"k": 4})
 
 # --- 6. Example query ---
 query = "Summarize the main ideas from these documents."
 print("\nQuery:", query)
-answer = qa.run(query)
-print("\nAnswer:\n", answer)
+
+# Retrieve relevant documents
+retrieved_docs = retriever.invoke(query)
+context = "\n\n".join([doc.page_content for doc in retrieved_docs])
+
+# Create prompt and get answer
+from langchain_core.prompts import ChatPromptTemplate
+prompt = ChatPromptTemplate.from_template(
+    "Based on the following context, answer the question.\n\n"
+    "Context:\n{context}\n\n"
+    "Question: {question}\n\n"
+    "Answer:"
+)
+
+chain = prompt | llm
+result = chain.invoke({"context": context, "question": query})
+print("\nAnswer:\n", result.content)

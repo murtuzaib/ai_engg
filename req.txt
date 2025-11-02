@@ -1,12 +1,15 @@
-These are pip installs needed.
+To run Ollama locally, follow these steps:
+1. Goto https://ollama.ai/ and download
+2. Install
+3. And from separate terminal run command "ollama run mistral" and keep it running.
 
+
+For python Team, need to do following pip installs:
 pip install python-docx
 pip install langchain langchain-huggingface langchain-community langchain-openai
 pip install sentence-transformers
 pip install faiss-cpu
 pip install chromadb
 
-To run Ollama, follow these steps:
-1. Goto https://ollama.ai/ and download
-2. Install
-3. And from separate terminal run command "ollama run mistral" and keep it running.
+
+For TypeScript, use the package.json file of this repo.

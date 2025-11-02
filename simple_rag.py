@@ -16,7 +16,7 @@ from langchain_community.llms import Ollama
 
 # --- Config ---
 FILES = ["doc1.docx", "doc2.docx", "doc3.docx"]  # local Word docs
-VECTOR_STORE = "faiss"  # choose "faiss" or "chroma"
+VECTOR_STORE = "chroma"  # choose "faiss" or "chroma"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 CHROMA_PERSIST_DIR = "./chroma_store"
 CHUNK_SIZE = 1000
@@ -60,7 +60,7 @@ query = "Summarize the main ideas from these documents."
 print("\nQuery:", query)
 
 # Retrieve relevant documents
-retrieved_docs = retriever.invoke(query)
+retrieved_docs = clearetriever.invoke(query)
 context = "\n\n".join([doc.page_content for doc in retrieved_docs])
 
 # Create prompt and get answer
@@ -74,4 +74,4 @@ prompt = ChatPromptTemplate.from_template(
 
 chain = prompt | llm
 result = chain.invoke({"context": context, "question": query})
-print("\nAnswer:\n", result.content)
+print("\nAnswer:\n", result)

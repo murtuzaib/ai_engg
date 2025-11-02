@@ -1,0 +1,12 @@
+These are pip installs needed.
+
+pip install python-docx
+pip install langchain langchain-huggingface langchain-community langchain-openai
+pip install sentence-transformers
+pip install faiss-cpu
+pip install chromadb
+
+To run Ollama, follow these steps:
+1. Goto https://ollama.ai/ and download
+2. Install
+3. And from separate terminal run command "ollama run mistral" and keep it running.

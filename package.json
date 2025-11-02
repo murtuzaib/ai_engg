@@ -1,0 +1,30 @@
+{
+  "name": "ts-rag-pipeline",
+  "version": "1.0.0",
+  "description": "Concise RAG pipeline in TypeScript using LangChain, Hugging Face embeddings, FAISS/Chroma, and OpenAI LLM.",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "dev": "nodemon index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.2.6",
+    "@langchain/openai": "^0.1.2",
+    "@langchain/community": "^0.2.18",
+    "@huggingface/inference": "^2.7.0",
+    "chromadb": "^0.5.0",
+    "faiss-node": "^0.4.0",
+    "docx-parser": "^1.0.4",
+    "dotenv": "^16.4.5",
+    "tslib": "^2.7.0",
+    "langchain": "^0.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.3",
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.1.3"
+  }
+}

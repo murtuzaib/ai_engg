@@ -4,7 +4,7 @@ To run Ollama locally, follow these steps:
 3. And from separate terminal run command "ollama run mistral" and keep it running.
 
 
-For python Team, need to do following pip installs:
+For python Team, need to do following pip installs or simply use requirements.txt of this repo.
 pip install python-docx
 pip install langchain langchain-huggingface langchain-community langchain-openai
 pip install sentence-transformers
